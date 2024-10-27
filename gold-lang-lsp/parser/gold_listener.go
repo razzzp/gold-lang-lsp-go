@@ -10,8 +10,14 @@ type GoldListener interface {
 	// EnterGoldProg is called when entering the goldProg production.
 	EnterGoldProg(c *GoldProgContext)
 
-	// EnterGoldDefinittion is called when entering the goldDefinittion production.
-	EnterGoldDefinittion(c *GoldDefinittionContext)
+	// EnterGoldDefinition is called when entering the goldDefinition production.
+	EnterGoldDefinition(c *GoldDefinitionContext)
+
+	// EnterGoldClassDefinition is called when entering the goldClassDefinition production.
+	EnterGoldClassDefinition(c *GoldClassDefinitionContext)
+
+	// EnterGoldModuleDefinition is called when entering the goldModuleDefinition production.
+	EnterGoldModuleDefinition(c *GoldModuleDefinitionContext)
 
 	// EnterGoldProcedureDefinition is called when entering the goldProcedureDefinition production.
 	EnterGoldProcedureDefinition(c *GoldProcedureDefinitionContext)
@@ -22,11 +28,11 @@ type GoldListener interface {
 	// EnterParameterDefinition is called when entering the parameterDefinition production.
 	EnterParameterDefinition(c *ParameterDefinitionContext)
 
-	// EnterGoldClassDefinition is called when entering the goldClassDefinition production.
-	EnterGoldClassDefinition(c *GoldClassDefinitionContext)
+	// EnterStatement is called when entering the statement production.
+	EnterStatement(c *StatementContext)
 
-	// EnterGoldModuleDefinition is called when entering the goldModuleDefinition production.
-	EnterGoldModuleDefinition(c *GoldModuleDefinitionContext)
+	// EnterVariableDefinition is called when entering the variableDefinition production.
+	EnterVariableDefinition(c *VariableDefinitionContext)
 
 	// EnterVarType is called when entering the varType production.
 	EnterVarType(c *VarTypeContext)
@@ -34,8 +40,14 @@ type GoldListener interface {
 	// ExitGoldProg is called when exiting the goldProg production.
 	ExitGoldProg(c *GoldProgContext)
 
-	// ExitGoldDefinittion is called when exiting the goldDefinittion production.
-	ExitGoldDefinittion(c *GoldDefinittionContext)
+	// ExitGoldDefinition is called when exiting the goldDefinition production.
+	ExitGoldDefinition(c *GoldDefinitionContext)
+
+	// ExitGoldClassDefinition is called when exiting the goldClassDefinition production.
+	ExitGoldClassDefinition(c *GoldClassDefinitionContext)
+
+	// ExitGoldModuleDefinition is called when exiting the goldModuleDefinition production.
+	ExitGoldModuleDefinition(c *GoldModuleDefinitionContext)
 
 	// ExitGoldProcedureDefinition is called when exiting the goldProcedureDefinition production.
 	ExitGoldProcedureDefinition(c *GoldProcedureDefinitionContext)
@@ -46,11 +58,11 @@ type GoldListener interface {
 	// ExitParameterDefinition is called when exiting the parameterDefinition production.
 	ExitParameterDefinition(c *ParameterDefinitionContext)
 
-	// ExitGoldClassDefinition is called when exiting the goldClassDefinition production.
-	ExitGoldClassDefinition(c *GoldClassDefinitionContext)
+	// ExitStatement is called when exiting the statement production.
+	ExitStatement(c *StatementContext)
 
-	// ExitGoldModuleDefinition is called when exiting the goldModuleDefinition production.
-	ExitGoldModuleDefinition(c *GoldModuleDefinitionContext)
+	// ExitVariableDefinition is called when exiting the variableDefinition production.
+	ExitVariableDefinition(c *VariableDefinitionContext)
 
 	// ExitVarType is called when exiting the varType production.
 	ExitVarType(c *VarTypeContext)

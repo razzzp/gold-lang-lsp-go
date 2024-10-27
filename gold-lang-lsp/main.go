@@ -15,12 +15,17 @@ func NewTreeShapeListener() *TreeShapeListener {
 	return new(TreeShapeListener)
 }
 
-func (tsl *TreeShapeListener) EnterEveryRule(ctx antlr.ParserRuleContext) {
-	fmt.Println(ctx.GetText())
+func (tsl *TreeShapeListener) EnterGoldClassDefinition(ctx *parser.GoldClassDefinitionContext) {
+	fmt.Printf("found class def %s\n", ctx.GetName().GetText())
+}
+
+func (tsl *TreeShapeListener) EnterGoldProcedureDefinition(ctx *parser.GoldProcedureDefinitionContext) {
+	fmt.Printf("found proc def %s\n", ctx.GetName().GetText())
+	fmt.Printf("statements: %t\n", ctx.GetStatements())
 }
 
 func main() {
-	input := antlr.NewInputStream("class aTestClass (aBaseClass)")
+	input, _ := antlr.NewFileStream("../test-inputs/aTestClass.god")
 	lexer := parser.NewGoldLexer(input)
 	stream := antlr.NewCommonTokenStream(lexer, 0)
 	p := parser.NewGoldParser(stream)

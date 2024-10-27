@@ -26,11 +26,23 @@ func (s *BaseGoldListener) EnterGoldProg(ctx *GoldProgContext) {}
 // ExitGoldProg is called when production goldProg is exited.
 func (s *BaseGoldListener) ExitGoldProg(ctx *GoldProgContext) {}
 
-// EnterGoldDefinittion is called when production goldDefinittion is entered.
-func (s *BaseGoldListener) EnterGoldDefinittion(ctx *GoldDefinittionContext) {}
+// EnterGoldDefinition is called when production goldDefinition is entered.
+func (s *BaseGoldListener) EnterGoldDefinition(ctx *GoldDefinitionContext) {}
 
-// ExitGoldDefinittion is called when production goldDefinittion is exited.
-func (s *BaseGoldListener) ExitGoldDefinittion(ctx *GoldDefinittionContext) {}
+// ExitGoldDefinition is called when production goldDefinition is exited.
+func (s *BaseGoldListener) ExitGoldDefinition(ctx *GoldDefinitionContext) {}
+
+// EnterGoldClassDefinition is called when production goldClassDefinition is entered.
+func (s *BaseGoldListener) EnterGoldClassDefinition(ctx *GoldClassDefinitionContext) {}
+
+// ExitGoldClassDefinition is called when production goldClassDefinition is exited.
+func (s *BaseGoldListener) ExitGoldClassDefinition(ctx *GoldClassDefinitionContext) {}
+
+// EnterGoldModuleDefinition is called when production goldModuleDefinition is entered.
+func (s *BaseGoldListener) EnterGoldModuleDefinition(ctx *GoldModuleDefinitionContext) {}
+
+// ExitGoldModuleDefinition is called when production goldModuleDefinition is exited.
+func (s *BaseGoldListener) ExitGoldModuleDefinition(ctx *GoldModuleDefinitionContext) {}
 
 // EnterGoldProcedureDefinition is called when production goldProcedureDefinition is entered.
 func (s *BaseGoldListener) EnterGoldProcedureDefinition(ctx *GoldProcedureDefinitionContext) {}
@@ -50,17 +62,17 @@ func (s *BaseGoldListener) EnterParameterDefinition(ctx *ParameterDefinitionCont
 // ExitParameterDefinition is called when production parameterDefinition is exited.
 func (s *BaseGoldListener) ExitParameterDefinition(ctx *ParameterDefinitionContext) {}
 
-// EnterGoldClassDefinition is called when production goldClassDefinition is entered.
-func (s *BaseGoldListener) EnterGoldClassDefinition(ctx *GoldClassDefinitionContext) {}
+// EnterStatement is called when production statement is entered.
+func (s *BaseGoldListener) EnterStatement(ctx *StatementContext) {}
 
-// ExitGoldClassDefinition is called when production goldClassDefinition is exited.
-func (s *BaseGoldListener) ExitGoldClassDefinition(ctx *GoldClassDefinitionContext) {}
+// ExitStatement is called when production statement is exited.
+func (s *BaseGoldListener) ExitStatement(ctx *StatementContext) {}
 
-// EnterGoldModuleDefinition is called when production goldModuleDefinition is entered.
-func (s *BaseGoldListener) EnterGoldModuleDefinition(ctx *GoldModuleDefinitionContext) {}
+// EnterVariableDefinition is called when production variableDefinition is entered.
+func (s *BaseGoldListener) EnterVariableDefinition(ctx *VariableDefinitionContext) {}
 
-// ExitGoldModuleDefinition is called when production goldModuleDefinition is exited.
-func (s *BaseGoldListener) ExitGoldModuleDefinition(ctx *GoldModuleDefinitionContext) {}
+// ExitVariableDefinition is called when production variableDefinition is exited.
+func (s *BaseGoldListener) ExitVariableDefinition(ctx *VariableDefinitionContext) {}
 
 // EnterVarType is called when production varType is entered.
 func (s *BaseGoldListener) EnterVarType(ctx *VarTypeContext) {}

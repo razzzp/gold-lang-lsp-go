@@ -3,20 +3,24 @@ grammar Gold;
 
 options{caseInsensitive=true;}
 
-goldProg: goldDefinittion+ EOF;
+goldProg: goldDefinition+ EOF;
 
 // class/module level definitions
-goldDefinittion: 
+goldDefinition: 
     goldClassDefinition
     | goldModuleDefinition
     | goldFunctionDefinition
     | goldProcedureDefinition
-    ;  
+    ;
+
+goldClassDefinition: 'class' name=ID ('(' parentClass=ID ')')?;
+goldModuleDefinition: 'module' name=ID;
+
 
 goldProcedureDefinition: 
-    'procedure'|'proc' name=ID ('(' params+=parameterDefinition (',' params+=parameterDefinition)? ')')?
-    statement*
-    'end'|'endproc';
+    ('procedure'|'proc') name=ID ('(' params+=parameterDefinition (',' params+=parameterDefinition)? ')')?
+    statements+=statement*
+    ('end'|'endproc');
 goldFunctionDefinition: 'function'|'func';
 
 parameterDefinition: PARAMETER_MODIFIER? name=ID (':' varType)?;
@@ -27,9 +31,6 @@ statement:
 
 // statements
 variableDefinition: 'var' name=ID ':' varType;
-
-goldClassDefinition: 'class' name=ID ('(' parentClass=ID ')')?;
-goldModuleDefinition: 'module' name=ID;
 
 varType:
     ID;

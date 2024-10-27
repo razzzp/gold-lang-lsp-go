@@ -32,48 +32,53 @@ var GoldParserStaticData struct {
 func goldParserInit() {
 	staticData := &GoldParserStaticData
 	staticData.LiteralNames = []string{
-		"", "'procedure'", "'proc'", "'('", "','", "')'", "'end'", "'endproc'",
-		"'function'", "'func'", "':'", "'class'", "'module'",
+		"", "'class'", "'('", "')'", "'module'", "'procedure'", "'proc'", "','",
+		"'end'", "'endproc'", "'function'", "'func'", "':'", "'var'",
 	}
 	staticData.SymbolicNames = []string{
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "PARAMETER_MODIFIER",
-		"WHITESPACE", "INT_LITERAL", "DEICMAL_LITERAL", "ID",
+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "PARAMETER_MODIFIER",
+		"WHITESPACE", "INT_LITERAL", "DEICMAL_LITERAL", "STRING_LITERAL", "ID",
 	}
 	staticData.RuleNames = []string{
-		"goldProg", "goldDefinittion", "goldProcedureDefinition", "goldFunctionDefinition",
-		"parameterDefinition", "goldClassDefinition", "goldModuleDefinition",
-		"varType",
+		"goldProg", "goldDefinition", "goldClassDefinition", "goldModuleDefinition",
+		"goldProcedureDefinition", "goldFunctionDefinition", "parameterDefinition",
+		"statement", "variableDefinition", "varType",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 17, 69, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
-		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 1, 0, 4, 0, 18, 8, 0, 11, 0, 12,
-		0, 19, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 28, 8, 1, 1, 2, 1, 2,
-		1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3, 2, 37, 8, 2, 1, 2, 1, 2, 3, 2, 41, 8,
-		2, 1, 2, 1, 2, 3, 2, 45, 8, 2, 1, 3, 1, 3, 1, 4, 3, 4, 50, 8, 4, 1, 4,
-		1, 4, 1, 4, 3, 4, 55, 8, 4, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 3, 5, 62, 8,
-		5, 1, 6, 1, 6, 1, 6, 1, 7, 1, 7, 1, 7, 0, 0, 8, 0, 2, 4, 6, 8, 10, 12,
-		14, 0, 1, 1, 0, 8, 9, 71, 0, 17, 1, 0, 0, 0, 2, 27, 1, 0, 0, 0, 4, 44,
-		1, 0, 0, 0, 6, 46, 1, 0, 0, 0, 8, 49, 1, 0, 0, 0, 10, 56, 1, 0, 0, 0, 12,
-		63, 1, 0, 0, 0, 14, 66, 1, 0, 0, 0, 16, 18, 3, 2, 1, 0, 17, 16, 1, 0, 0,
-		0, 18, 19, 1, 0, 0, 0, 19, 17, 1, 0, 0, 0, 19, 20, 1, 0, 0, 0, 20, 21,
-		1, 0, 0, 0, 21, 22, 5, 0, 0, 1, 22, 1, 1, 0, 0, 0, 23, 28, 3, 10, 5, 0,
-		24, 28, 3, 12, 6, 0, 25, 28, 3, 6, 3, 0, 26, 28, 3, 4, 2, 0, 27, 23, 1,
-		0, 0, 0, 27, 24, 1, 0, 0, 0, 27, 25, 1, 0, 0, 0, 27, 26, 1, 0, 0, 0, 28,
-		3, 1, 0, 0, 0, 29, 45, 5, 1, 0, 0, 30, 31, 5, 2, 0, 0, 31, 40, 5, 17, 0,
-		0, 32, 33, 5, 3, 0, 0, 33, 36, 3, 8, 4, 0, 34, 35, 5, 4, 0, 0, 35, 37,
-		3, 8, 4, 0, 36, 34, 1, 0, 0, 0, 36, 37, 1, 0, 0, 0, 37, 38, 1, 0, 0, 0,
-		38, 39, 5, 5, 0, 0, 39, 41, 1, 0, 0, 0, 40, 32, 1, 0, 0, 0, 40, 41, 1,
-		0, 0, 0, 41, 42, 1, 0, 0, 0, 42, 45, 5, 6, 0, 0, 43, 45, 5, 7, 0, 0, 44,
-		29, 1, 0, 0, 0, 44, 30, 1, 0, 0, 0, 44, 43, 1, 0, 0, 0, 45, 5, 1, 0, 0,
-		0, 46, 47, 7, 0, 0, 0, 47, 7, 1, 0, 0, 0, 48, 50, 5, 13, 0, 0, 49, 48,
-		1, 0, 0, 0, 49, 50, 1, 0, 0, 0, 50, 51, 1, 0, 0, 0, 51, 54, 5, 17, 0, 0,
-		52, 53, 5, 10, 0, 0, 53, 55, 3, 14, 7, 0, 54, 52, 1, 0, 0, 0, 54, 55, 1,
-		0, 0, 0, 55, 9, 1, 0, 0, 0, 56, 57, 5, 11, 0, 0, 57, 61, 5, 17, 0, 0, 58,
-		59, 5, 3, 0, 0, 59, 60, 5, 17, 0, 0, 60, 62, 5, 5, 0, 0, 61, 58, 1, 0,
-		0, 0, 61, 62, 1, 0, 0, 0, 62, 11, 1, 0, 0, 0, 63, 64, 5, 12, 0, 0, 64,
-		65, 5, 17, 0, 0, 65, 13, 1, 0, 0, 0, 66, 67, 5, 17, 0, 0, 67, 15, 1, 0,
-		0, 0, 8, 19, 27, 36, 40, 44, 49, 54, 61,
+		4, 1, 19, 83, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 1, 0, 4,
+		0, 22, 8, 0, 11, 0, 12, 0, 23, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1,
+		32, 8, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 3, 2, 39, 8, 2, 1, 3, 1, 3, 1,
+		3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 3, 4, 50, 8, 4, 1, 4, 1, 4, 3, 4,
+		54, 8, 4, 1, 4, 5, 4, 57, 8, 4, 10, 4, 12, 4, 60, 9, 4, 1, 4, 1, 4, 1,
+		5, 1, 5, 1, 6, 3, 6, 67, 8, 6, 1, 6, 1, 6, 1, 6, 3, 6, 72, 8, 6, 1, 7,
+		1, 7, 1, 8, 1, 8, 1, 8, 1, 8, 1, 8, 1, 9, 1, 9, 1, 9, 0, 0, 10, 0, 2, 4,
+		6, 8, 10, 12, 14, 16, 18, 0, 3, 1, 0, 5, 6, 1, 0, 8, 9, 1, 0, 10, 11, 82,
+		0, 21, 1, 0, 0, 0, 2, 31, 1, 0, 0, 0, 4, 33, 1, 0, 0, 0, 6, 40, 1, 0, 0,
+		0, 8, 43, 1, 0, 0, 0, 10, 63, 1, 0, 0, 0, 12, 66, 1, 0, 0, 0, 14, 73, 1,
+		0, 0, 0, 16, 75, 1, 0, 0, 0, 18, 80, 1, 0, 0, 0, 20, 22, 3, 2, 1, 0, 21,
+		20, 1, 0, 0, 0, 22, 23, 1, 0, 0, 0, 23, 21, 1, 0, 0, 0, 23, 24, 1, 0, 0,
+		0, 24, 25, 1, 0, 0, 0, 25, 26, 5, 0, 0, 1, 26, 1, 1, 0, 0, 0, 27, 32, 3,
+		4, 2, 0, 28, 32, 3, 6, 3, 0, 29, 32, 3, 10, 5, 0, 30, 32, 3, 8, 4, 0, 31,
+		27, 1, 0, 0, 0, 31, 28, 1, 0, 0, 0, 31, 29, 1, 0, 0, 0, 31, 30, 1, 0, 0,
+		0, 32, 3, 1, 0, 0, 0, 33, 34, 5, 1, 0, 0, 34, 38, 5, 19, 0, 0, 35, 36,
+		5, 2, 0, 0, 36, 37, 5, 19, 0, 0, 37, 39, 5, 3, 0, 0, 38, 35, 1, 0, 0, 0,
+		38, 39, 1, 0, 0, 0, 39, 5, 1, 0, 0, 0, 40, 41, 5, 4, 0, 0, 41, 42, 5, 19,
+		0, 0, 42, 7, 1, 0, 0, 0, 43, 44, 7, 0, 0, 0, 44, 53, 5, 19, 0, 0, 45, 46,
+		5, 2, 0, 0, 46, 49, 3, 12, 6, 0, 47, 48, 5, 7, 0, 0, 48, 50, 3, 12, 6,
+		0, 49, 47, 1, 0, 0, 0, 49, 50, 1, 0, 0, 0, 50, 51, 1, 0, 0, 0, 51, 52,
+		5, 3, 0, 0, 52, 54, 1, 0, 0, 0, 53, 45, 1, 0, 0, 0, 53, 54, 1, 0, 0, 0,
+		54, 58, 1, 0, 0, 0, 55, 57, 3, 14, 7, 0, 56, 55, 1, 0, 0, 0, 57, 60, 1,
+		0, 0, 0, 58, 56, 1, 0, 0, 0, 58, 59, 1, 0, 0, 0, 59, 61, 1, 0, 0, 0, 60,
+		58, 1, 0, 0, 0, 61, 62, 7, 1, 0, 0, 62, 9, 1, 0, 0, 0, 63, 64, 7, 2, 0,
+		0, 64, 11, 1, 0, 0, 0, 65, 67, 5, 14, 0, 0, 66, 65, 1, 0, 0, 0, 66, 67,
+		1, 0, 0, 0, 67, 68, 1, 0, 0, 0, 68, 71, 5, 19, 0, 0, 69, 70, 5, 12, 0,
+		0, 70, 72, 3, 18, 9, 0, 71, 69, 1, 0, 0, 0, 71, 72, 1, 0, 0, 0, 72, 13,
+		1, 0, 0, 0, 73, 74, 3, 16, 8, 0, 74, 15, 1, 0, 0, 0, 75, 76, 5, 13, 0,
+		0, 76, 77, 5, 19, 0, 0, 77, 78, 5, 12, 0, 0, 78, 79, 3, 18, 9, 0, 79, 17,
+		1, 0, 0, 0, 80, 81, 5, 19, 0, 0, 81, 19, 1, 0, 0, 0, 8, 23, 31, 38, 49,
+		53, 58, 66, 71,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -124,23 +129,27 @@ const (
 	GoldParserT__9               = 10
 	GoldParserT__10              = 11
 	GoldParserT__11              = 12
-	GoldParserPARAMETER_MODIFIER = 13
-	GoldParserWHITESPACE         = 14
-	GoldParserINT_LITERAL        = 15
-	GoldParserDEICMAL_LITERAL    = 16
-	GoldParserID                 = 17
+	GoldParserT__12              = 13
+	GoldParserPARAMETER_MODIFIER = 14
+	GoldParserWHITESPACE         = 15
+	GoldParserINT_LITERAL        = 16
+	GoldParserDEICMAL_LITERAL    = 17
+	GoldParserSTRING_LITERAL     = 18
+	GoldParserID                 = 19
 )
 
 // GoldParser rules.
 const (
 	GoldParserRULE_goldProg                = 0
-	GoldParserRULE_goldDefinittion         = 1
-	GoldParserRULE_goldProcedureDefinition = 2
-	GoldParserRULE_goldFunctionDefinition  = 3
-	GoldParserRULE_parameterDefinition     = 4
-	GoldParserRULE_goldClassDefinition     = 5
-	GoldParserRULE_goldModuleDefinition    = 6
-	GoldParserRULE_varType                 = 7
+	GoldParserRULE_goldDefinition          = 1
+	GoldParserRULE_goldClassDefinition     = 2
+	GoldParserRULE_goldModuleDefinition    = 3
+	GoldParserRULE_goldProcedureDefinition = 4
+	GoldParserRULE_goldFunctionDefinition  = 5
+	GoldParserRULE_parameterDefinition     = 6
+	GoldParserRULE_statement               = 7
+	GoldParserRULE_variableDefinition      = 8
+	GoldParserRULE_varType                 = 9
 )
 
 // IGoldProgContext is an interface to support dynamic dispatch.
@@ -152,8 +161,8 @@ type IGoldProgContext interface {
 
 	// Getter signatures
 	EOF() antlr.TerminalNode
-	AllGoldDefinittion() []IGoldDefinittionContext
-	GoldDefinittion(i int) IGoldDefinittionContext
+	AllGoldDefinition() []IGoldDefinitionContext
+	GoldDefinition(i int) IGoldDefinitionContext
 
 	// IsGoldProgContext differentiates from other interfaces.
 	IsGoldProgContext()
@@ -195,20 +204,20 @@ func (s *GoldProgContext) EOF() antlr.TerminalNode {
 	return s.GetToken(GoldParserEOF, 0)
 }
 
-func (s *GoldProgContext) AllGoldDefinittion() []IGoldDefinittionContext {
+func (s *GoldProgContext) AllGoldDefinition() []IGoldDefinitionContext {
 	children := s.GetChildren()
 	len := 0
 	for _, ctx := range children {
-		if _, ok := ctx.(IGoldDefinittionContext); ok {
+		if _, ok := ctx.(IGoldDefinitionContext); ok {
 			len++
 		}
 	}
 
-	tst := make([]IGoldDefinittionContext, len)
+	tst := make([]IGoldDefinitionContext, len)
 	i := 0
 	for _, ctx := range children {
-		if t, ok := ctx.(IGoldDefinittionContext); ok {
-			tst[i] = t.(IGoldDefinittionContext)
+		if t, ok := ctx.(IGoldDefinitionContext); ok {
+			tst[i] = t.(IGoldDefinitionContext)
 			i++
 		}
 	}
@@ -216,11 +225,11 @@ func (s *GoldProgContext) AllGoldDefinittion() []IGoldDefinittionContext {
 	return tst
 }
 
-func (s *GoldProgContext) GoldDefinittion(i int) IGoldDefinittionContext {
+func (s *GoldProgContext) GoldDefinition(i int) IGoldDefinitionContext {
 	var t antlr.RuleContext
 	j := 0
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IGoldDefinittionContext); ok {
+		if _, ok := ctx.(IGoldDefinitionContext); ok {
 			if j == i {
 				t = ctx.(antlr.RuleContext)
 				break
@@ -233,7 +242,7 @@ func (s *GoldProgContext) GoldDefinittion(i int) IGoldDefinittionContext {
 		return nil
 	}
 
-	return t.(IGoldDefinittionContext)
+	return t.(IGoldDefinitionContext)
 }
 
 func (s *GoldProgContext) GetRuleContext() antlr.RuleContext {
@@ -262,20 +271,20 @@ func (p *GoldParser) GoldProg() (localctx IGoldProgContext) {
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(17)
+	p.SetState(21)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for ok := true; ok; ok = ((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&7046) != 0) {
+	for ok := true; ok; ok = ((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&3186) != 0) {
 		{
-			p.SetState(16)
-			p.GoldDefinittion()
+			p.SetState(20)
+			p.GoldDefinition()
 		}
 
-		p.SetState(19)
+		p.SetState(23)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -283,7 +292,7 @@ func (p *GoldParser) GoldProg() (localctx IGoldProgContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(21)
+		p.SetState(25)
 		p.Match(GoldParserEOF)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -304,8 +313,8 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IGoldDefinittionContext is an interface to support dynamic dispatch.
-type IGoldDefinittionContext interface {
+// IGoldDefinitionContext is an interface to support dynamic dispatch.
+type IGoldDefinitionContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
@@ -317,43 +326,43 @@ type IGoldDefinittionContext interface {
 	GoldFunctionDefinition() IGoldFunctionDefinitionContext
 	GoldProcedureDefinition() IGoldProcedureDefinitionContext
 
-	// IsGoldDefinittionContext differentiates from other interfaces.
-	IsGoldDefinittionContext()
+	// IsGoldDefinitionContext differentiates from other interfaces.
+	IsGoldDefinitionContext()
 }
 
-type GoldDefinittionContext struct {
+type GoldDefinitionContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 }
 
-func NewEmptyGoldDefinittionContext() *GoldDefinittionContext {
-	var p = new(GoldDefinittionContext)
+func NewEmptyGoldDefinitionContext() *GoldDefinitionContext {
+	var p = new(GoldDefinitionContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldDefinittion
+	p.RuleIndex = GoldParserRULE_goldDefinition
 	return p
 }
 
-func InitEmptyGoldDefinittionContext(p *GoldDefinittionContext) {
+func InitEmptyGoldDefinitionContext(p *GoldDefinitionContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldDefinittion
+	p.RuleIndex = GoldParserRULE_goldDefinition
 }
 
-func (*GoldDefinittionContext) IsGoldDefinittionContext() {}
+func (*GoldDefinitionContext) IsGoldDefinitionContext() {}
 
-func NewGoldDefinittionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldDefinittionContext {
-	var p = new(GoldDefinittionContext)
+func NewGoldDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldDefinitionContext {
+	var p = new(GoldDefinitionContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = GoldParserRULE_goldDefinittion
+	p.RuleIndex = GoldParserRULE_goldDefinition
 
 	return p
 }
 
-func (s *GoldDefinittionContext) GetParser() antlr.Parser { return s.parser }
+func (s *GoldDefinitionContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *GoldDefinittionContext) GoldClassDefinition() IGoldClassDefinitionContext {
+func (s *GoldDefinitionContext) GoldClassDefinition() IGoldClassDefinitionContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IGoldClassDefinitionContext); ok {
@@ -369,7 +378,7 @@ func (s *GoldDefinittionContext) GoldClassDefinition() IGoldClassDefinitionConte
 	return t.(IGoldClassDefinitionContext)
 }
 
-func (s *GoldDefinittionContext) GoldModuleDefinition() IGoldModuleDefinitionContext {
+func (s *GoldDefinitionContext) GoldModuleDefinition() IGoldModuleDefinitionContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IGoldModuleDefinitionContext); ok {
@@ -385,7 +394,7 @@ func (s *GoldDefinittionContext) GoldModuleDefinition() IGoldModuleDefinitionCon
 	return t.(IGoldModuleDefinitionContext)
 }
 
-func (s *GoldDefinittionContext) GoldFunctionDefinition() IGoldFunctionDefinitionContext {
+func (s *GoldDefinitionContext) GoldFunctionDefinition() IGoldFunctionDefinitionContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IGoldFunctionDefinitionContext); ok {
@@ -401,7 +410,7 @@ func (s *GoldDefinittionContext) GoldFunctionDefinition() IGoldFunctionDefinitio
 	return t.(IGoldFunctionDefinitionContext)
 }
 
-func (s *GoldDefinittionContext) GoldProcedureDefinition() IGoldProcedureDefinitionContext {
+func (s *GoldDefinitionContext) GoldProcedureDefinition() IGoldProcedureDefinitionContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
 		if _, ok := ctx.(IGoldProcedureDefinitionContext); ok {
@@ -417,67 +426,358 @@ func (s *GoldDefinittionContext) GoldProcedureDefinition() IGoldProcedureDefinit
 	return t.(IGoldProcedureDefinitionContext)
 }
 
-func (s *GoldDefinittionContext) GetRuleContext() antlr.RuleContext {
+func (s *GoldDefinitionContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *GoldDefinittionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *GoldDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *GoldDefinittionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *GoldDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.EnterGoldDefinittion(s)
+		listenerT.EnterGoldDefinition(s)
 	}
 }
 
-func (s *GoldDefinittionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *GoldDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.ExitGoldDefinittion(s)
+		listenerT.ExitGoldDefinition(s)
 	}
 }
 
-func (p *GoldParser) GoldDefinittion() (localctx IGoldDefinittionContext) {
-	localctx = NewGoldDefinittionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 2, GoldParserRULE_goldDefinittion)
-	p.SetState(27)
+func (p *GoldParser) GoldDefinition() (localctx IGoldDefinitionContext) {
+	localctx = NewGoldDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 2, GoldParserRULE_goldDefinition)
+	p.SetState(31)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 
 	switch p.GetTokenStream().LA(1) {
-	case GoldParserT__10:
+	case GoldParserT__0:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(23)
+			p.SetState(27)
 			p.GoldClassDefinition()
 		}
 
-	case GoldParserT__11:
+	case GoldParserT__3:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(24)
+			p.SetState(28)
 			p.GoldModuleDefinition()
 		}
 
-	case GoldParserT__7, GoldParserT__8:
+	case GoldParserT__9, GoldParserT__10:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(25)
+			p.SetState(29)
 			p.GoldFunctionDefinition()
 		}
 
-	case GoldParserT__0, GoldParserT__1, GoldParserT__6:
+	case GoldParserT__4, GoldParserT__5:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(26)
+			p.SetState(30)
 			p.GoldProcedureDefinition()
 		}
 
 	default:
 		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
 		goto errorExit
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IGoldClassDefinitionContext is an interface to support dynamic dispatch.
+type IGoldClassDefinitionContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetName returns the name token.
+	GetName() antlr.Token
+
+	// GetParentClass returns the parentClass token.
+	GetParentClass() antlr.Token
+
+	// SetName sets the name token.
+	SetName(antlr.Token)
+
+	// SetParentClass sets the parentClass token.
+	SetParentClass(antlr.Token)
+
+	// Getter signatures
+	AllID() []antlr.TerminalNode
+	ID(i int) antlr.TerminalNode
+
+	// IsGoldClassDefinitionContext differentiates from other interfaces.
+	IsGoldClassDefinitionContext()
+}
+
+type GoldClassDefinitionContext struct {
+	antlr.BaseParserRuleContext
+	parser      antlr.Parser
+	name        antlr.Token
+	parentClass antlr.Token
+}
+
+func NewEmptyGoldClassDefinitionContext() *GoldClassDefinitionContext {
+	var p = new(GoldClassDefinitionContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GoldParserRULE_goldClassDefinition
+	return p
+}
+
+func InitEmptyGoldClassDefinitionContext(p *GoldClassDefinitionContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GoldParserRULE_goldClassDefinition
+}
+
+func (*GoldClassDefinitionContext) IsGoldClassDefinitionContext() {}
+
+func NewGoldClassDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldClassDefinitionContext {
+	var p = new(GoldClassDefinitionContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = GoldParserRULE_goldClassDefinition
+
+	return p
+}
+
+func (s *GoldClassDefinitionContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *GoldClassDefinitionContext) GetName() antlr.Token { return s.name }
+
+func (s *GoldClassDefinitionContext) GetParentClass() antlr.Token { return s.parentClass }
+
+func (s *GoldClassDefinitionContext) SetName(v antlr.Token) { s.name = v }
+
+func (s *GoldClassDefinitionContext) SetParentClass(v antlr.Token) { s.parentClass = v }
+
+func (s *GoldClassDefinitionContext) AllID() []antlr.TerminalNode {
+	return s.GetTokens(GoldParserID)
+}
+
+func (s *GoldClassDefinitionContext) ID(i int) antlr.TerminalNode {
+	return s.GetToken(GoldParserID, i)
+}
+
+func (s *GoldClassDefinitionContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *GoldClassDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *GoldClassDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GoldListener); ok {
+		listenerT.EnterGoldClassDefinition(s)
+	}
+}
+
+func (s *GoldClassDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GoldListener); ok {
+		listenerT.ExitGoldClassDefinition(s)
+	}
+}
+
+func (p *GoldParser) GoldClassDefinition() (localctx IGoldClassDefinitionContext) {
+	localctx = NewGoldClassDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 4, GoldParserRULE_goldClassDefinition)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(33)
+		p.Match(GoldParserT__0)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(34)
+
+		var _m = p.Match(GoldParserID)
+
+		localctx.(*GoldClassDefinitionContext).name = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(38)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	if _la == GoldParserT__1 {
+		{
+			p.SetState(35)
+			p.Match(GoldParserT__1)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+		{
+			p.SetState(36)
+
+			var _m = p.Match(GoldParserID)
+
+			localctx.(*GoldClassDefinitionContext).parentClass = _m
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+		{
+			p.SetState(37)
+			p.Match(GoldParserT__2)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IGoldModuleDefinitionContext is an interface to support dynamic dispatch.
+type IGoldModuleDefinitionContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// GetName returns the name token.
+	GetName() antlr.Token
+
+	// SetName sets the name token.
+	SetName(antlr.Token)
+
+	// Getter signatures
+	ID() antlr.TerminalNode
+
+	// IsGoldModuleDefinitionContext differentiates from other interfaces.
+	IsGoldModuleDefinitionContext()
+}
+
+type GoldModuleDefinitionContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+	name   antlr.Token
+}
+
+func NewEmptyGoldModuleDefinitionContext() *GoldModuleDefinitionContext {
+	var p = new(GoldModuleDefinitionContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+	return p
+}
+
+func InitEmptyGoldModuleDefinitionContext(p *GoldModuleDefinitionContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+}
+
+func (*GoldModuleDefinitionContext) IsGoldModuleDefinitionContext() {}
+
+func NewGoldModuleDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldModuleDefinitionContext {
+	var p = new(GoldModuleDefinitionContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+
+	return p
+}
+
+func (s *GoldModuleDefinitionContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *GoldModuleDefinitionContext) GetName() antlr.Token { return s.name }
+
+func (s *GoldModuleDefinitionContext) SetName(v antlr.Token) { s.name = v }
+
+func (s *GoldModuleDefinitionContext) ID() antlr.TerminalNode {
+	return s.GetToken(GoldParserID, 0)
+}
+
+func (s *GoldModuleDefinitionContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *GoldModuleDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *GoldModuleDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GoldListener); ok {
+		listenerT.EnterGoldModuleDefinition(s)
+	}
+}
+
+func (s *GoldModuleDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GoldListener); ok {
+		listenerT.ExitGoldModuleDefinition(s)
+	}
+}
+
+func (p *GoldParser) GoldModuleDefinition() (localctx IGoldModuleDefinitionContext) {
+	localctx = NewGoldModuleDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 6, GoldParserRULE_goldModuleDefinition)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(40)
+		p.Match(GoldParserT__3)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(41)
+
+		var _m = p.Match(GoldParserID)
+
+		localctx.(*GoldModuleDefinitionContext).name = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
 	}
 
 errorExit:
@@ -509,19 +809,33 @@ type IGoldProcedureDefinitionContext interface {
 	// Get_parameterDefinition returns the _parameterDefinition rule contexts.
 	Get_parameterDefinition() IParameterDefinitionContext
 
+	// Get_statement returns the _statement rule contexts.
+	Get_statement() IStatementContext
+
 	// Set_parameterDefinition sets the _parameterDefinition rule contexts.
 	Set_parameterDefinition(IParameterDefinitionContext)
+
+	// Set_statement sets the _statement rule contexts.
+	Set_statement(IStatementContext)
 
 	// GetParams returns the params rule context list.
 	GetParams() []IParameterDefinitionContext
 
+	// GetStatements returns the statements rule context list.
+	GetStatements() []IStatementContext
+
 	// SetParams sets the params rule context list.
 	SetParams([]IParameterDefinitionContext)
+
+	// SetStatements sets the statements rule context list.
+	SetStatements([]IStatementContext)
 
 	// Getter signatures
 	ID() antlr.TerminalNode
 	AllParameterDefinition() []IParameterDefinitionContext
 	ParameterDefinition(i int) IParameterDefinitionContext
+	AllStatement() []IStatementContext
+	Statement(i int) IStatementContext
 
 	// IsGoldProcedureDefinitionContext differentiates from other interfaces.
 	IsGoldProcedureDefinitionContext()
@@ -533,6 +847,8 @@ type GoldProcedureDefinitionContext struct {
 	name                 antlr.Token
 	_parameterDefinition IParameterDefinitionContext
 	params               []IParameterDefinitionContext
+	_statement           IStatementContext
+	statements           []IStatementContext
 }
 
 func NewEmptyGoldProcedureDefinitionContext() *GoldProcedureDefinitionContext {
@@ -570,13 +886,21 @@ func (s *GoldProcedureDefinitionContext) Get_parameterDefinition() IParameterDef
 	return s._parameterDefinition
 }
 
+func (s *GoldProcedureDefinitionContext) Get_statement() IStatementContext { return s._statement }
+
 func (s *GoldProcedureDefinitionContext) Set_parameterDefinition(v IParameterDefinitionContext) {
 	s._parameterDefinition = v
 }
 
+func (s *GoldProcedureDefinitionContext) Set_statement(v IStatementContext) { s._statement = v }
+
 func (s *GoldProcedureDefinitionContext) GetParams() []IParameterDefinitionContext { return s.params }
 
+func (s *GoldProcedureDefinitionContext) GetStatements() []IStatementContext { return s.statements }
+
 func (s *GoldProcedureDefinitionContext) SetParams(v []IParameterDefinitionContext) { s.params = v }
+
+func (s *GoldProcedureDefinitionContext) SetStatements(v []IStatementContext) { s.statements = v }
 
 func (s *GoldProcedureDefinitionContext) ID() antlr.TerminalNode {
 	return s.GetToken(GoldParserID, 0)
@@ -623,6 +947,47 @@ func (s *GoldProcedureDefinitionContext) ParameterDefinition(i int) IParameterDe
 	return t.(IParameterDefinitionContext)
 }
 
+func (s *GoldProcedureDefinitionContext) AllStatement() []IStatementContext {
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IStatementContext); ok {
+			len++
+		}
+	}
+
+	tst := make([]IStatementContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IStatementContext); ok {
+			tst[i] = t.(IStatementContext)
+			i++
+		}
+	}
+
+	return tst
+}
+
+func (s *GoldProcedureDefinitionContext) Statement(i int) IStatementContext {
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IStatementContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IStatementContext)
+}
+
 func (s *GoldProcedureDefinitionContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -645,31 +1010,42 @@ func (s *GoldProcedureDefinitionContext) ExitRule(listener antlr.ParseTreeListen
 
 func (p *GoldParser) GoldProcedureDefinition() (localctx IGoldProcedureDefinitionContext) {
 	localctx = NewGoldProcedureDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 4, GoldParserRULE_goldProcedureDefinition)
+	p.EnterRule(localctx, 8, GoldParserRULE_goldProcedureDefinition)
 	var _la int
 
-	p.SetState(44)
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(43)
+		_la = p.GetTokenStream().LA(1)
+
+		if !(_la == GoldParserT__4 || _la == GoldParserT__5) {
+			p.GetErrorHandler().RecoverInline(p)
+		} else {
+			p.GetErrorHandler().ReportMatch(p)
+			p.Consume()
+		}
+	}
+	{
+		p.SetState(44)
+
+		var _m = p.Match(GoldParserID)
+
+		localctx.(*GoldProcedureDefinitionContext).name = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(53)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
+	_la = p.GetTokenStream().LA(1)
 
-	switch p.GetTokenStream().LA(1) {
-	case GoldParserT__0:
-		p.EnterOuterAlt(localctx, 1)
+	if _la == GoldParserT__1 {
 		{
-			p.SetState(29)
-			p.Match(GoldParserT__0)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-	case GoldParserT__1:
-		p.EnterOuterAlt(localctx, 2)
-		{
-			p.SetState(30)
+			p.SetState(45)
 			p.Match(GoldParserT__1)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -677,99 +1053,83 @@ func (p *GoldParser) GoldProcedureDefinition() (localctx IGoldProcedureDefinitio
 			}
 		}
 		{
-			p.SetState(31)
+			p.SetState(46)
 
-			var _m = p.Match(GoldParserID)
+			var _x = p.ParameterDefinition()
 
-			localctx.(*GoldProcedureDefinitionContext).name = _m
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
+			localctx.(*GoldProcedureDefinitionContext)._parameterDefinition = _x
 		}
-		p.SetState(40)
+		localctx.(*GoldProcedureDefinitionContext).params = append(localctx.(*GoldProcedureDefinitionContext).params, localctx.(*GoldProcedureDefinitionContext)._parameterDefinition)
+		p.SetState(49)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
 
-		if _la == GoldParserT__2 {
+		if _la == GoldParserT__6 {
 			{
-				p.SetState(32)
-				p.Match(GoldParserT__2)
+				p.SetState(47)
+				p.Match(GoldParserT__6)
 				if p.HasError() {
 					// Recognition error - abort rule
 					goto errorExit
 				}
 			}
 			{
-				p.SetState(33)
+				p.SetState(48)
 
 				var _x = p.ParameterDefinition()
 
 				localctx.(*GoldProcedureDefinitionContext)._parameterDefinition = _x
 			}
 			localctx.(*GoldProcedureDefinitionContext).params = append(localctx.(*GoldProcedureDefinitionContext).params, localctx.(*GoldProcedureDefinitionContext)._parameterDefinition)
-			p.SetState(36)
-			p.GetErrorHandler().Sync(p)
-			if p.HasError() {
-				goto errorExit
-			}
-			_la = p.GetTokenStream().LA(1)
-
-			if _la == GoldParserT__3 {
-				{
-					p.SetState(34)
-					p.Match(GoldParserT__3)
-					if p.HasError() {
-						// Recognition error - abort rule
-						goto errorExit
-					}
-				}
-				{
-					p.SetState(35)
-
-					var _x = p.ParameterDefinition()
-
-					localctx.(*GoldProcedureDefinitionContext)._parameterDefinition = _x
-				}
-				localctx.(*GoldProcedureDefinitionContext).params = append(localctx.(*GoldProcedureDefinitionContext).params, localctx.(*GoldProcedureDefinitionContext)._parameterDefinition)
-
-			}
-			{
-				p.SetState(38)
-				p.Match(GoldParserT__4)
-				if p.HasError() {
-					// Recognition error - abort rule
-					goto errorExit
-				}
-			}
 
 		}
 		{
-			p.SetState(42)
-			p.Match(GoldParserT__5)
+			p.SetState(51)
+			p.Match(GoldParserT__2)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
 
-	case GoldParserT__6:
-		p.EnterOuterAlt(localctx, 3)
-		{
-			p.SetState(43)
-			p.Match(GoldParserT__6)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-	default:
-		p.SetError(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+	}
+	p.SetState(58)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
 		goto errorExit
+	}
+	_la = p.GetTokenStream().LA(1)
+
+	for _la == GoldParserT__12 {
+		{
+			p.SetState(55)
+
+			var _x = p.Statement()
+
+			localctx.(*GoldProcedureDefinitionContext)._statement = _x
+		}
+		localctx.(*GoldProcedureDefinitionContext).statements = append(localctx.(*GoldProcedureDefinitionContext).statements, localctx.(*GoldProcedureDefinitionContext)._statement)
+
+		p.SetState(60)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_la = p.GetTokenStream().LA(1)
+	}
+	{
+		p.SetState(61)
+		_la = p.GetTokenStream().LA(1)
+
+		if !(_la == GoldParserT__7 || _la == GoldParserT__8) {
+			p.GetErrorHandler().RecoverInline(p)
+		} else {
+			p.GetErrorHandler().ReportMatch(p)
+			p.Consume()
+		}
 	}
 
 errorExit:
@@ -848,15 +1208,15 @@ func (s *GoldFunctionDefinitionContext) ExitRule(listener antlr.ParseTreeListene
 
 func (p *GoldParser) GoldFunctionDefinition() (localctx IGoldFunctionDefinitionContext) {
 	localctx = NewGoldFunctionDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, GoldParserRULE_goldFunctionDefinition)
+	p.EnterRule(localctx, 10, GoldParserRULE_goldFunctionDefinition)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(46)
+		p.SetState(63)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(_la == GoldParserT__7 || _la == GoldParserT__8) {
+		if !(_la == GoldParserT__9 || _la == GoldParserT__10) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -982,11 +1342,11 @@ func (s *ParameterDefinitionContext) ExitRule(listener antlr.ParseTreeListener) 
 
 func (p *GoldParser) ParameterDefinition() (localctx IParameterDefinitionContext) {
 	localctx = NewParameterDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, GoldParserRULE_parameterDefinition)
+	p.EnterRule(localctx, 12, GoldParserRULE_parameterDefinition)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(49)
+	p.SetState(66)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -995,7 +1355,7 @@ func (p *GoldParser) ParameterDefinition() (localctx IParameterDefinitionContext
 
 	if _la == GoldParserPARAMETER_MODIFIER {
 		{
-			p.SetState(48)
+			p.SetState(65)
 			p.Match(GoldParserPARAMETER_MODIFIER)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1005,7 +1365,7 @@ func (p *GoldParser) ParameterDefinition() (localctx IParameterDefinitionContext
 
 	}
 	{
-		p.SetState(51)
+		p.SetState(68)
 
 		var _m = p.Match(GoldParserID)
 
@@ -1015,24 +1375,24 @@ func (p *GoldParser) ParameterDefinition() (localctx IParameterDefinitionContext
 			goto errorExit
 		}
 	}
-	p.SetState(54)
+	p.SetState(71)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	if _la == GoldParserT__9 {
+	if _la == GoldParserT__11 {
 		{
-			p.SetState(52)
-			p.Match(GoldParserT__9)
+			p.SetState(69)
+			p.Match(GoldParserT__11)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
 		{
-			p.SetState(53)
+			p.SetState(70)
 			p.VarType()
 		}
 
@@ -1051,164 +1411,95 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IGoldClassDefinitionContext is an interface to support dynamic dispatch.
-type IGoldClassDefinitionContext interface {
+// IStatementContext is an interface to support dynamic dispatch.
+type IStatementContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
-	// GetName returns the name token.
-	GetName() antlr.Token
-
-	// GetParentClass returns the parentClass token.
-	GetParentClass() antlr.Token
-
-	// SetName sets the name token.
-	SetName(antlr.Token)
-
-	// SetParentClass sets the parentClass token.
-	SetParentClass(antlr.Token)
-
 	// Getter signatures
-	AllID() []antlr.TerminalNode
-	ID(i int) antlr.TerminalNode
+	VariableDefinition() IVariableDefinitionContext
 
-	// IsGoldClassDefinitionContext differentiates from other interfaces.
-	IsGoldClassDefinitionContext()
+	// IsStatementContext differentiates from other interfaces.
+	IsStatementContext()
 }
 
-type GoldClassDefinitionContext struct {
+type StatementContext struct {
 	antlr.BaseParserRuleContext
-	parser      antlr.Parser
-	name        antlr.Token
-	parentClass antlr.Token
+	parser antlr.Parser
 }
 
-func NewEmptyGoldClassDefinitionContext() *GoldClassDefinitionContext {
-	var p = new(GoldClassDefinitionContext)
+func NewEmptyStatementContext() *StatementContext {
+	var p = new(StatementContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldClassDefinition
+	p.RuleIndex = GoldParserRULE_statement
 	return p
 }
 
-func InitEmptyGoldClassDefinitionContext(p *GoldClassDefinitionContext) {
+func InitEmptyStatementContext(p *StatementContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldClassDefinition
+	p.RuleIndex = GoldParserRULE_statement
 }
 
-func (*GoldClassDefinitionContext) IsGoldClassDefinitionContext() {}
+func (*StatementContext) IsStatementContext() {}
 
-func NewGoldClassDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldClassDefinitionContext {
-	var p = new(GoldClassDefinitionContext)
+func NewStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *StatementContext {
+	var p = new(StatementContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = GoldParserRULE_goldClassDefinition
+	p.RuleIndex = GoldParserRULE_statement
 
 	return p
 }
 
-func (s *GoldClassDefinitionContext) GetParser() antlr.Parser { return s.parser }
+func (s *StatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *GoldClassDefinitionContext) GetName() antlr.Token { return s.name }
+func (s *StatementContext) VariableDefinition() IVariableDefinitionContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IVariableDefinitionContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
 
-func (s *GoldClassDefinitionContext) GetParentClass() antlr.Token { return s.parentClass }
+	if t == nil {
+		return nil
+	}
 
-func (s *GoldClassDefinitionContext) SetName(v antlr.Token) { s.name = v }
-
-func (s *GoldClassDefinitionContext) SetParentClass(v antlr.Token) { s.parentClass = v }
-
-func (s *GoldClassDefinitionContext) AllID() []antlr.TerminalNode {
-	return s.GetTokens(GoldParserID)
+	return t.(IVariableDefinitionContext)
 }
 
-func (s *GoldClassDefinitionContext) ID(i int) antlr.TerminalNode {
-	return s.GetToken(GoldParserID, i)
-}
-
-func (s *GoldClassDefinitionContext) GetRuleContext() antlr.RuleContext {
+func (s *StatementContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *GoldClassDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *StatementContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *GoldClassDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *StatementContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.EnterGoldClassDefinition(s)
+		listenerT.EnterStatement(s)
 	}
 }
 
-func (s *GoldClassDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *StatementContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.ExitGoldClassDefinition(s)
+		listenerT.ExitStatement(s)
 	}
 }
 
-func (p *GoldParser) GoldClassDefinition() (localctx IGoldClassDefinitionContext) {
-	localctx = NewGoldClassDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 10, GoldParserRULE_goldClassDefinition)
-	var _la int
-
+func (p *GoldParser) Statement() (localctx IStatementContext) {
+	localctx = NewStatementContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, GoldParserRULE_statement)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(56)
-		p.Match(GoldParserT__10)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	{
-		p.SetState(57)
-
-		var _m = p.Match(GoldParserID)
-
-		localctx.(*GoldClassDefinitionContext).name = _m
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	p.SetState(61)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_la = p.GetTokenStream().LA(1)
-
-	if _la == GoldParserT__2 {
-		{
-			p.SetState(58)
-			p.Match(GoldParserT__2)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(59)
-
-			var _m = p.Match(GoldParserID)
-
-			localctx.(*GoldClassDefinitionContext).parentClass = _m
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-		{
-			p.SetState(60)
-			p.Match(GoldParserT__4)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
+		p.SetState(73)
+		p.VariableDefinition()
 	}
 
 errorExit:
@@ -1224,8 +1515,8 @@ errorExit:
 	goto errorExit // Trick to prevent compiler error if the label is not used
 }
 
-// IGoldModuleDefinitionContext is an interface to support dynamic dispatch.
-type IGoldModuleDefinitionContext interface {
+// IVariableDefinitionContext is an interface to support dynamic dispatch.
+type IVariableDefinitionContext interface {
 	antlr.ParserRuleContext
 
 	// GetParser returns the parser.
@@ -1238,79 +1529,115 @@ type IGoldModuleDefinitionContext interface {
 	SetName(antlr.Token)
 
 	// Getter signatures
+	VarType() IVarTypeContext
 	ID() antlr.TerminalNode
 
-	// IsGoldModuleDefinitionContext differentiates from other interfaces.
-	IsGoldModuleDefinitionContext()
+	// IsVariableDefinitionContext differentiates from other interfaces.
+	IsVariableDefinitionContext()
 }
 
-type GoldModuleDefinitionContext struct {
+type VariableDefinitionContext struct {
 	antlr.BaseParserRuleContext
 	parser antlr.Parser
 	name   antlr.Token
 }
 
-func NewEmptyGoldModuleDefinitionContext() *GoldModuleDefinitionContext {
-	var p = new(GoldModuleDefinitionContext)
+func NewEmptyVariableDefinitionContext() *VariableDefinitionContext {
+	var p = new(VariableDefinitionContext)
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+	p.RuleIndex = GoldParserRULE_variableDefinition
 	return p
 }
 
-func InitEmptyGoldModuleDefinitionContext(p *GoldModuleDefinitionContext) {
+func InitEmptyVariableDefinitionContext(p *VariableDefinitionContext) {
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
-	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+	p.RuleIndex = GoldParserRULE_variableDefinition
 }
 
-func (*GoldModuleDefinitionContext) IsGoldModuleDefinitionContext() {}
+func (*VariableDefinitionContext) IsVariableDefinitionContext() {}
 
-func NewGoldModuleDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *GoldModuleDefinitionContext {
-	var p = new(GoldModuleDefinitionContext)
+func NewVariableDefinitionContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *VariableDefinitionContext {
+	var p = new(VariableDefinitionContext)
 
 	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
 
 	p.parser = parser
-	p.RuleIndex = GoldParserRULE_goldModuleDefinition
+	p.RuleIndex = GoldParserRULE_variableDefinition
 
 	return p
 }
 
-func (s *GoldModuleDefinitionContext) GetParser() antlr.Parser { return s.parser }
+func (s *VariableDefinitionContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *GoldModuleDefinitionContext) GetName() antlr.Token { return s.name }
+func (s *VariableDefinitionContext) GetName() antlr.Token { return s.name }
 
-func (s *GoldModuleDefinitionContext) SetName(v antlr.Token) { s.name = v }
+func (s *VariableDefinitionContext) SetName(v antlr.Token) { s.name = v }
 
-func (s *GoldModuleDefinitionContext) ID() antlr.TerminalNode {
+func (s *VariableDefinitionContext) VarType() IVarTypeContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IVarTypeContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IVarTypeContext)
+}
+
+func (s *VariableDefinitionContext) ID() antlr.TerminalNode {
 	return s.GetToken(GoldParserID, 0)
 }
 
-func (s *GoldModuleDefinitionContext) GetRuleContext() antlr.RuleContext {
+func (s *VariableDefinitionContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *GoldModuleDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+func (s *VariableDefinitionContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-func (s *GoldModuleDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *VariableDefinitionContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.EnterGoldModuleDefinition(s)
+		listenerT.EnterVariableDefinition(s)
 	}
 }
 
-func (s *GoldModuleDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *VariableDefinitionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GoldListener); ok {
-		listenerT.ExitGoldModuleDefinition(s)
+		listenerT.ExitVariableDefinition(s)
 	}
 }
 
-func (p *GoldParser) GoldModuleDefinition() (localctx IGoldModuleDefinitionContext) {
-	localctx = NewGoldModuleDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 12, GoldParserRULE_goldModuleDefinition)
+func (p *GoldParser) VariableDefinition() (localctx IVariableDefinitionContext) {
+	localctx = NewVariableDefinitionContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, GoldParserRULE_variableDefinition)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(63)
+		p.SetState(75)
+		p.Match(GoldParserT__12)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(76)
+
+		var _m = p.Match(GoldParserID)
+
+		localctx.(*VariableDefinitionContext).name = _m
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(77)
 		p.Match(GoldParserT__11)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1318,15 +1645,8 @@ func (p *GoldParser) GoldModuleDefinition() (localctx IGoldModuleDefinitionConte
 		}
 	}
 	{
-		p.SetState(64)
-
-		var _m = p.Match(GoldParserID)
-
-		localctx.(*GoldModuleDefinitionContext).name = _m
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
+		p.SetState(78)
+		p.VarType()
 	}
 
 errorExit:
@@ -1414,10 +1734,10 @@ func (s *VarTypeContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *GoldParser) VarType() (localctx IVarTypeContext) {
 	localctx = NewVarTypeContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 14, GoldParserRULE_varType)
+	p.EnterRule(localctx, 18, GoldParserRULE_varType)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(66)
+		p.SetState(80)
 		p.Match(GoldParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
